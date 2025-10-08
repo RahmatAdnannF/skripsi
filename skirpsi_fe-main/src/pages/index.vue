@@ -1,0 +1,60 @@
+<template>
+    <v-main :min-height="$vuetify.display.mdAndUp ? 800 : 550">
+        <v-container class="h-100 d-flex align-center justify-center">
+            <div class="w-100 w-md-75 text-center">
+                <v-chip border="thin opacity-25" color="surface" variant="flat">
+                    Ikuti survei kepribadian kami untuk memahami potensi diri Anda lebih baik.
+                </v-chip>
+
+                <h1 class="text-h4 text-md-h2 font-weight-bold my-6">
+                    Temukan Keahlian dan <br>Potensi Diri Anda
+                </h1>
+
+                <div class="text-body-1 text-medium-emphasis mb-10">
+                    Kenali lebih dalam kepribadian dan kemampuan Anda dengan survei berbasis analisis ilmiah.<br>
+                    Dapatkan
+                    wawasan yang dapat membantu perjalanan karier dan pengembangan diri Anda!
+                </div>
+                <div class="d-flex ga-4 justify-center">
+                    <v-btn class="text-none" color="primary" flat rounded="lg"
+                        :text="!profile ? 'Daftar Sekarang' : 'Mulai Survey'"
+                        :to="!profile ? '/auth/login' : `${setting.url}`" />
+                </div>
+            </div>
+            <div class="v-bg position-absolute top-0 right-0 left-0 bottom-0">
+                <div aria-hidden="true" class="overflow-hidden opacity-20 w-100 h-100" />
+            </div>
+        </v-container>
+    </v-main>
+</template>
+
+<script setup>
+import { computed, onMounted } from 'vue'
+import { useProfileStore, useDataSettingStore } from "@/stores";
+
+const profileStore = useProfileStore();
+const dataSettingStore = useDataSettingStore();
+
+const profile = computed(() => profileStore.profile);
+const setting = computed(() => dataSettingStore.getSettings);
+
+
+onMounted(() => {
+    dataSettingStore.fetchSettingById();
+})
+</script>
+
+<style scoped>
+.v-bg {
+    filter: blur(56px);
+    pointer-events: none;
+}
+
+.v-bg>div {
+    background: linear-gradient(to bottom right,
+            rgb(var(--v-theme-primary)),
+            rgb(var(--v-theme-error)));
+    z-index: -10;
+    clip-path: polygon(20% 50%, 27% 66%, 41% 66%, 50% 50%, 41% 34%, 27% 34%, 20% 50%, 55% 50%, 62% 66%, 76% 66%, 85% 50%, 76% 34%, 62% 34%, 55% 50%, 30% 50%, 37% 66%, 51% 66%, 60% 50%, 51% 34%, 37% 34%, 30% 50%);
+}
+</style>

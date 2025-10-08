@@ -1,0 +1,7 @@
+Install Node Js versi 20.14.0
+https://nodejs.org/dist/v20.14.0/win-x64/node.exe
+
+Langkah langkah jalananin program 
+1. setelah intall node js kemudian buka CMD 
+2. ketika perintah " npm i " untuk install dependency yang ada
+2. kalo udah selesai install dependency ketik " npm run dev " untuk running program vue 3
